@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import useGetLocalNetworkDevices from "../hooks/useGetLocalNetworkEspDevice";
+import AnimatedLoader from "../components/AnimatedLoader";
 
 export default function App() {
   const { espDeviceIp, scanningLoadingProgress, error } =
@@ -8,9 +9,11 @@ export default function App() {
   return (
     <View style={styles.container}>
       {scanningLoadingProgress !== 100 ? (
-        <Text>Scanning... {scanningLoadingProgress}</Text>
+        <AnimatedLoader percentage={scanningLoadingProgress} />
       ) : espDeviceIp ? (
-        <Text>Found ESP device at: {espDeviceIp}</Text>
+        <View>
+          <Text>Found ESP device at: {espDeviceIp}</Text>
+        </View>
       ) : (
         <Text>{error}</Text>
       )}
