@@ -27,10 +27,13 @@ export const EspService = {
     const data = await response.json();
     return data;
   },
-  async renameDevice(espIp: string) {
-    const response = await fetchWithTimeout(`http://${espIp}`, {
-      method: "POST",
-    });
+  async renameDevice(espIp: string, pin: string, name: string) {
+    const response = await fetchWithTimeout(
+      `http://${espIp}/rename?pin=${pin}&name=${name}`,
+      {
+        method: "POST",
+      }
+    );
     const data = await response.json();
     return data;
   },
