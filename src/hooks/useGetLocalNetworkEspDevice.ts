@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as Network from "expo-network";
 import { fetchWithTimeout } from "../utils/fetch-with-timeout";
+import { EspService } from "../core/EspService";
 
 type IUseGetLocalNetworkDevices = {
   espDeviceIp: string | null;
@@ -25,8 +26,7 @@ const useGetLocalNetworkDevices = (): IUseGetLocalNetworkDevices => {
       const deviceIpAddress = await getDeviceIpAddress();
       const ipBase = getIpBase(deviceIpAddress);
       for (let i = 0; i < 255; i++) {
-        const ip = `${ipBase}.${i}`;
-        console.log(`TESTING: ${ip}`);
+        const ip = `${ipBase}.130`; // EDIT THIS
         if (await isEspDevice(ip)) {
           setEspDeviceIp(ip);
           setScanningLoadingProgress(100);

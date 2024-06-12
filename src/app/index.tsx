@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import useGetLocalNetworkDevices from "../hooks/useGetLocalNetworkEspDevice";
+import DevicesList from "./Devices";
 
 export default function App() {
   const { espDeviceIp, scanningLoadingProgress, error } =
@@ -10,7 +11,10 @@ export default function App() {
       {scanningLoadingProgress !== 100 ? (
         <Text>Scanning... {scanningLoadingProgress}</Text>
       ) : espDeviceIp ? (
-        <Text>Found ESP device at: {espDeviceIp}</Text>
+        <>
+          <Text>Found ESP device at: {espDeviceIp}</Text>
+          <DevicesList espIp={espDeviceIp} />
+        </>
       ) : (
         <Text>{error}</Text>
       )}
