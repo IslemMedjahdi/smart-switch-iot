@@ -2,6 +2,7 @@
   "expo": {
     "name": "smart-switch-iot",
     "slug": "smart-switch-iot",
+    "scheme": "smart-switch-iot",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
