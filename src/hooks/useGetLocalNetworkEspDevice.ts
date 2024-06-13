@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import * as Network from "expo-network";
 import { fetchWithTimeout } from "../utils/fetch-with-timeout";
-import { EspService } from "../core/EspService";
+import { delay } from "../utils/delay";
 
 type IUseGetLocalNetworkDevices = {
   espDeviceIp: string | null;
   error: string | null;
   scanningLoadingProgress: number;
 };
-
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const useGetLocalNetworkDevices = (): IUseGetLocalNetworkDevices => {
   const [espDeviceIp, setEspDeviceIp] = useState<string | null>(null);
