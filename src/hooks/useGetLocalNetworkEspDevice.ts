@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import * as SecureStore from "expo-secure-store";
 import * as Network from "expo-network";
 import { fetchWithTimeout } from "../utils/fetch-with-timeout";
 import { delay } from "../utils/delay";
+import { EspService } from "../core/EspService";
 
 type IUseGetLocalNetworkDevices = {
   espDeviceIp: string | null;
@@ -65,6 +67,16 @@ const useGetLocalNetworkDevices = (): IUseGetLocalNetworkDevices => {
       }
     } catch (e) {
       return false;
+    }
+  };
+
+  const saveDeviceId = async (ip: string) => {
+    try {
+      const response = await EspService.getDeviceId(ip);
+      const { id } = response;
+      await SecureStore.setItemAsync("LAST_ESP_DEVICE", id);
+    } catch (e) {
+      throw new Error("An error occurred while fetching the device ID");
     }
   };
 

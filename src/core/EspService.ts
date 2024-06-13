@@ -17,15 +17,13 @@ export const EspService = {
     const data = await response.json();
     return data;
   },
-  async toggleDeviceStatus(espIp: string, pin: string): Promise<Device> {
+  async toggleDeviceStatus(espIp: string, pin: string) {
     const response = await fetchWithTimeout(
       `http://${espIp}/toggle?pin=${pin}`,
       {
         method: "POST",
       }
     );
-    const data = await response.json();
-    return data;
   },
   async renameDevice(espIp: string, pin: string, name: string) {
     const response = await fetchWithTimeout(
@@ -34,10 +32,10 @@ export const EspService = {
         method: "POST",
       }
     );
-    const data = await response.json();
-    return data;
   },
-  async getDeviceId(espIp: string): Promise<string> {
+  async getDeviceId(espIp: string): Promise<{
+    id: string;
+  }> {
     const response = await fetchWithTimeout(`http://${espIp}/id`);
     const data = await response.json();
     return data;
