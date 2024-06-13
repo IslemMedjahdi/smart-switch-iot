@@ -1,7 +1,7 @@
 export function fetchWithTimeout(
   url: string,
   options: RequestInit = {},
-  timeout: number = 300
+  timeout: number = 500
 ): Promise<Response> {
   console.log("REQUEST SENT TO: ", url);
   return new Promise((resolve, reject) => {

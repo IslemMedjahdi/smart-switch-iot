@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import file from "../../assets/Animation-1718228073641.json";
 import LottieView from "lottie-react-native";
 import { ProgressBar } from "react-native-paper";
@@ -32,6 +32,16 @@ export default function AnimatedLoader({ percentage = 0 }) {
         progress={percentage / 100}
         color={"#2884ec"}
       />
+      <Text
+        style={{
+          marginTop: 10,
+          color: "#2884ec",
+          fontFamily: "Poppins_500Medium",
+          fontSize: 16,
+        }}
+      >
+        Scanning network ... {percentage.toFixed(0)}%
+      </Text>
     </View>
   );
 }

@@ -1,10 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 import useGetLocalNetworkDevices from "../hooks/useGetLocalNetworkEspDevice";
-import DevicesList from "./Devices";
+import DevicesList from "../components/Devices";
 import AnimatedLoader from "../components/AnimatedLoader";
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-import AppLoading from "expo-app-loading";
 import {
   useFonts,
   Poppins_100Thin,
