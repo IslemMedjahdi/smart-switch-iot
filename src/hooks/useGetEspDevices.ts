@@ -61,8 +61,10 @@ const useGetEspDevices = ({ espIp }: { espIp: string }): IUseGetEspDevices => {
 
   const renameDevice = async (pin: string, name: string) => {
     try {
-      await EspService.renameDevice(espIp, pin, name);
-      fetchDevices();
+      EspService.renameDevice(espIp, pin, name).then(() => {
+        console.log("Renamed device");
+        fetchDevices();
+      });
     } catch (e) {
       if (e instanceof Error) {
         return setError(e.message);

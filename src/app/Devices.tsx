@@ -14,13 +14,13 @@ import {
 import { DeviceStatus } from "../core/EspService";
 
 const DevicesList = ({ espIp }: { espIp: string }) => {
-  const { devices, loading, toggleDeviceStatus } = useGetEspDevices({
-    espIp,
-  });
+  const { devices, loading, toggleDeviceStatus, renameDevice } =
+    useGetEspDevices({
+      espIp,
+    });
   const [modalVisible, setModalVisible] = useState(Array(100).fill(false));
 
-  const [text, onChangeText] = React.useState("Useless Text");
-  const [number, onChangeNumber] = React.useState("");
+  const [text, onChangeText] = React.useState("");
 
   return (
     <ScrollView
@@ -95,13 +95,16 @@ const DevicesList = ({ espIp }: { espIp: string }) => {
                       >
                         <Pressable
                           style={[styles.button, styles.buttonClose]}
-                          onPress={() =>
+                          onPress={async () => {
+                            if (text === "") return;
+                            renameDevice(device.pin, text);
                             setModalVisible(
                               modalVisible.map((value, i) =>
                                 i === index ? false : value
                               )
-                            )
-                          }
+                            );
+                            onChangeText("");
+                          }}
                         >
                           <Text style={styles.textStyle}>Rename</Text>
                         </Pressable>

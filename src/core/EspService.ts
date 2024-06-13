@@ -34,8 +34,6 @@ export const EspService = {
         method: "POST",
       }
     );
-    const data = await response.json();
-    return data;
   },
   async getDeviceId(espIp: string): Promise<string> {
     const response = await fetchWithTimeout(`http://${espIp}/id`);
