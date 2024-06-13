@@ -43,7 +43,7 @@ const useManageEspDeviceOnline = () => {
   useEffect(() => {
     if (!espDeviceId) {
       const onValueChange = database()
-        .ref(`/users/${espDeviceId}`)
+        .ref(`/devices/${espDeviceId}`)
         .on("value", (snapshot) => {
           console.log("User data: ", snapshot.val());
         });
