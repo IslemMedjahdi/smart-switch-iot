@@ -16,7 +16,6 @@ const useGetEspDevices = ({ espIp }: { espIp: string }): IUseGetEspDevices => {
   const [error, setError] = React.useState<string | null>(null);
 
   const fetchDevices = async () => {
-    setLoading(true);
     setError(null);
     try {
       const devices = await EspService.getDevices(espIp);
@@ -39,10 +38,21 @@ const useGetEspDevices = ({ espIp }: { espIp: string }): IUseGetEspDevices => {
 
   const toggleDeviceStatus = async (pin: string) => {
     try {
-      await EspService.toggleDeviceStatus(espIp, pin);
-      fetchDevices();
+      EspService.toggleDeviceStatus(espIp, pin)
+        .then(() => {
+          console.log("Toggled device status");
+          fetchDevices();
+        })
+        .catch((e) => {
+          if (e instanceof Error) {
+            console.log(e.message);
+            return setError(e.message);
+          }
+          setError("An error occurred");
+        });
     } catch (e) {
       if (e instanceof Error) {
+        console.log(e.message);
         return setError(e.message);
       }
       setError("An error occurred");

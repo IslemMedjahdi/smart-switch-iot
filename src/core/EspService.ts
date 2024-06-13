@@ -13,19 +13,19 @@ export type Device = {
 
 export const EspService = {
   async getDevices(espIp: string): Promise<Device[]> {
-    const response = await fetchWithTimeout(`http://${espIp}/devices`);
+    const response = await fetchWithTimeout(`http://${espIp}/devices`, {
+      method: "POST",
+    });
     const data = await response.json();
     return data;
   },
-  async toggleDeviceStatus(espIp: string, pin: string): Promise<Device> {
+  async toggleDeviceStatus(espIp: string, pin: string): Promise<void> {
     const response = await fetchWithTimeout(
       `http://${espIp}/toggle?pin=${pin}`,
       {
         method: "POST",
       }
     );
-    const data = await response.json();
-    return data;
   },
   async renameDevice(espIp: string, pin: string, name: string) {
     const response = await fetchWithTimeout(
