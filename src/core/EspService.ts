@@ -1,40 +1,41 @@
-enum DeviceStatus {
+import { fetchWithTimeout } from "../utils/fetch-with-timeout";
+
+export enum DeviceStatus {
   HIGH = 1,
   LOW = 0,
 }
 
-type Device = {
+export type Device = {
   pin: string;
   name: string;
   status: DeviceStatus;
 };
 
-const EspService = {
-  baseUrl: "",
-  async setBaseUrl(baseUrl: string) {
-    this.baseUrl = baseUrl;
-  },
-  async getDevices(): Promise<Device[]> {
-    const response = await fetch(`${this.baseUrl}/devices`);
+export const EspService = {
+  async getDevices(espIp: string): Promise<Device[]> {
+    const response = await fetchWithTimeout(`http://${espIp}/devices`);
     const data = await response.json();
     return data;
   },
-  async toggleDeviceStatus(pin: string): Promise<Device> {
-    const response = await fetch(`${this.baseUrl}/toggle?pin=${pin}`, {
+  async toggleDeviceStatus(espIp: string, pin: string): Promise<Device> {
+    const response = await fetchWithTimeout(
+      `http://${espIp}/toggle?pin=${pin}`,
+      {
+        method: "POST",
+      }
+    );
+    const data = await response.json();
+    return data;
+  },
+  async renameDevice(espIp: string) {
+    const response = await fetchWithTimeout(`http://${espIp}`, {
       method: "POST",
     });
     const data = await response.json();
     return data;
   },
-  async renameDevice() {
-    const response = await fetch(`${this.baseUrl}`, {
-      method: "POST",
-    });
-    const data = await response.json();
-    return data;
-  },
-  async getDeviceId(): Promise<string> {
-    const response = await fetch(`${this.baseUrl}/id`);
+  async getDeviceId(espIp: string): Promise<string> {
+    const response = await fetchWithTimeout(`http://${espIp}/id`);
     const data = await response.json();
     return data;
   },

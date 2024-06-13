@@ -1,8 +1,9 @@
 export function fetchWithTimeout(
   url: string,
   options: RequestInit = {},
-  timeout: number = 100
+  timeout: number = 300
 ): Promise<Response> {
+  console.log("REQUEST SENT TO: ", url);
   return new Promise((resolve, reject) => {
     const controller = new AbortController();
     const signal = controller.signal;
